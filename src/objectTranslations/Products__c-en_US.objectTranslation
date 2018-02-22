@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Products</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Products</value>
+    </caseValues>
+    <fields>
+        <label><!-- Available --></label>
+        <name>Available__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cost --></label>
+        <name>Cost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dateadd --></label>
+        <name>Dateadd__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dateofmade --></label>
+        <name>Dateofmade__c</name>
+    </fields>
+    <fields>
+        <label><!-- Stock --></label>
+        <name>Stock__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

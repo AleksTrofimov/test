@@ -1,0 +1,80 @@
+<aura:component controller="ProductsCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes">
+
+    <aura:attribute name="products" type="List"/>
+    <aura:attribute name="product" type="ProductWrapper"/>    
+    <aura:attribute name="showProductForm" type="boolean" default="false"/>
+	
+    <aura:handler name="init" value="{!this}" action="{!c.handleInitCmp}"/>
+	     
+    <!-- NEW PRODUCT FORM -->
+    <lightning:layout >
+        <lightning:layoutItem padding="around-small" size="6">
+            <div class="slds-form--stacked">
+                <button class="slds-button slds-button--brand" onclick="{!c.handleOpenNewForm}">Create product</button>
+            </div>
+            
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <thead>
+                    <tr class="slds-text-heading--label">
+                        <th scope="col"><div class="slds-truncate" title="ProductId">Product Id</div></th>
+                        <th scope="col"><div class="slds-truncate" title="ProductName">Product Name</div></th>
+                        <th scope="col"><div class="slds-truncate" title="ProductCost">Product Cost</div></th>
+                        <th scope="col"><div class="slds-truncate" title="ProductStock">Stock</div></th>
+                        <th scope="col"><div class="slds-truncate" title="ProductAvailable">Available</div></th>
+                        <th scope="col"><div class="slds-truncate" title="ProductCost">Actions</div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.products}" var="product">
+                        <tr>
+                            <td scope="row"><div class="slds-truncate" title="Id">{!product.Id}</div></td>
+                            <td><div class="slds-truncate" title="Name">{!product.Name}</div></td>
+                            <td><div class="slds-truncate" title="Cost">{!product.Cost__c}</div></td>
+                            <td><div class="slds-truncate" title="Stock">{!product.Stock__c}</div></td>
+                            <td><div class="slds-truncate" title="Available"><input type="checkbox" checked="{!product.isAvailable}"/></div></td>
+                            
+                            <td>
+                                <div class="slds-truncate" title="Actions">
+                                    <button data-label="Update" id="{!product.Id}" onclick="{!c.handleGetProduct}">update</button>
+                                    <button data-label="Delete" id="{!product.Id}" onclick="{!c.handleDeleteProduct}">delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </lightning:layoutItem>
+    </lightning:layout>
+    
+    <aura:if isTrue="{!v.showProductForm}">
+        <div role="dialog" tabindex="-1" aria-labelledby="header99" class="slds-modal slds-fade-in-open ">
+            <div class="slds-modal__container">
+                <div aria-labelledby="newproductform">
+                    <fieldset class="slds-box slds-theme--default slds-container--small">
+                        <legend id="newproductform" class="slds-text-heading--small slds-p-vertical--medium">
+                        </legend>
+                        <form class="slds-form--stacked">
+                            <lightning:input aura:id="productform" label="Product Name" name="productname" value="{!v.product.name}" required="true"/>
+                            <lightning:input type="number"
+                                             aura:id="productform"
+                                             label="Product Cost"
+                                             name="productcost"
+                                             value="{!v.product.cost}"
+                                             messageWhenRangeUnderflow="Enter an amount that's at least $0.10."/>
+                            <lightning:input type="number"
+                                             aura:id="productstock"
+                                             label="Product on stock"
+                                             name="product"
+                                             value="{!v.product.stock}"
+                                             messageWhenRangeUnderflow="0 or more"/>
+                            <lightning:button label="Save" variant="brand" class="slds-button slds-button--neutral slds-m-top--medium" onclick="{!c.handleSaveOrCreateProduct}"/>
+                            <lightning:button label="Cancel" class="slds-button slds-button--neutral slds-m-top--medium" onclick="{!c.handleCloseForm}"/>  
+                        </form>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open"></div>  
+    </aura:if>
+    
+</aura:component>
